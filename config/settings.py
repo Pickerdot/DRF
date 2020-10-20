@@ -11,7 +11,7 @@ https://docs.djangoproject.com/en/2.2/ref/settings/
 """
 
 import os
-from datetime import timedelta  # DRF
+from datetime import timedelta  # JWTで時間取得するため
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     "django.contrib.staticfiles",
     # 3rd party apps
     "rest_framework",  # (1)追加←DRFのアプロケーションを登録
+    "djoser"  # JWT利用のため
     # My application
     "apiv1.apps.Apiv1Config",  # (1)追加
     "shop.apps.ShopConfig",  # (1)追加
@@ -107,11 +108,6 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
-# Authentication
-LOGIN_REDIRECT_URL = "/"  # (3)追加←ログイン、ログアウト先
-LOGOUT_REDIRECT_URL = "reset_framework:login"  # (3)追加
-
-
 # Internationalization
 # https://docs.djangoproject.com/en/2.2/topics/i18n/
 
@@ -135,6 +131,11 @@ STATICFILED_DIRS = [os.path.join(BASE_DIR, "static")]  # (5) 追加←staticの�
 # REST Framework
 REST_FRAMEWORK = {
     "DEFAULT_AUTHENTICATION_CLASSES": [
-        "rest_framework.authentication.SessionAuthentication",  # (2) 追加
+        "rest_framework_simplejwt.authentication.JWTAuthentication",  # (2) 追加
     ],
+}
+
+SIMPLE_JWT = {
+    "AUTH_HEADER_TYPES": ("JWT"),
+    "ACCESS_TOKEN_LIFETIME": timedelta(minutes=30),
 }
