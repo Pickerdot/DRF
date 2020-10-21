@@ -1,4 +1,12 @@
 {
     "python.linting.flake8Enabled": true,
-    "python.linting.enabled": true
+    "python.linting.enabled": true,
+    "editor.formatOnSave": false,
+    // Prettier の ESLint 連携
+    "prettier.eslintIntegration": true,
+    // Shift+Alt+FでESLint機能拡張のフォーマットを行えるようにする
+    "eslint.format.enable": true,
+    "editor.codeActionsOnSave": {
+        "source.fixAll.eslint": true
+    },
 }
