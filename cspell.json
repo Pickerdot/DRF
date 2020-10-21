@@ -1,0 +1,17 @@
+{
+    "version": "0.1",
+    "language": "en",
+    "words": [
+        "hoge",
+        "fuga",
+        "piyo",
+        "djoser",
+        "apiv",
+        "vuex",
+        "xsrf",
+        "csrftoken"
+    ],
+    "flagWords": [
+        "hte"
+    ]
+}
