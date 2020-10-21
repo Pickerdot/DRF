@@ -1,15 +1,70 @@
 <template>
-<div id="login-page">
-    <GlobalHeader/>
-    <GlobalMessage/>
-
+  <div id="login-page">
+    <GlobalHeader />
+    <GlobalMessage />
     <!--メインアリア-->
     <main class="container">
-        <p class="h5 mb-4">ログイン</p>
-        <b-form @dubmit.prevent="submitLogin">
-            <div class="row form-group">
-
-            </div>
-            </b-form>
-    
+      <p class="h5 mb-4">ログイン</p>
+      <b-form @dubmit.prevent="submitLogin">
+        <div class="row form-group">
+          <label class="col-sm-3 col-form-label">ユーザー名</label>
+          <div class="col-sm-8">
+            <b-form-input type="text" v-model="form.username" required />
+          </div>
+        </div>
+        <div class="row form-group">
+          <label class="col-sm-3 col-form-label">パスワード</label>
+          <div class="col-sm-8">
+            <b-form-input type="password" v-model="form.password" required />
+          </div>
+        </div>
+        <div class="row text-center mt-5">
+          <div class="col-sm-12">
+            <b-button type="submit" variant="primary">ログアウト</b-button>
+          </div>
+        </div>
+      </b-form>
+    </main>
+  </div>
 </template>
+
+<script>
+import GlobalHeader from "@/components/GlovalHeader.vue";
+import GlobalMessage from "@/components/GlobalMessage.vue";
+
+export default {
+  components: {
+    GlobalHeader,
+    GlobalMessage,
+  },
+  data() {
+    return {
+      form: {
+        username: "",
+        password: "",
+      },
+    };
+  },
+  methods: {
+    //ログインボタン押下
+    submitLogin: function () {
+      //ログイン
+      this.$store
+        .dispatch("suth/login", {
+          username: this.form.username,
+          password: this.form.password,
+        })
+        .then(() => {
+          console.log("Login succeeded.");
+          this,
+            $store.dispatch("message/setInfoMessage", {
+              message: "ログインしました。",
+            });
+          //クエリ文字列に「next」がなければ、ホーム画面へ
+          const next = this.$route.query.next || "/";
+          this.$trouter.replase(next);
+        });
+    },
+  },
+};
+</script>
